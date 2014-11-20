@@ -18,7 +18,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>project</name>
-	<description>A starter Java EE 6 webapp project for use on JBoss EAP 6, generated from the jboss-javaee6-webapp archetype</description>
+	<description>Bookstore Service</description>
 
 	<url>http://jboss.org/jbossas</url>
 	<licenses>
@@ -50,6 +50,8 @@
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<maven.compiler.source>1.6</maven.compiler.source>
+		
+		<cxf.version>3.0.2</cxf.version>
 	</properties>
 
 
@@ -191,6 +193,7 @@
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
+			<scope>provided</scope>
 			<version>1.9.13</version>
 		</dependency>
 

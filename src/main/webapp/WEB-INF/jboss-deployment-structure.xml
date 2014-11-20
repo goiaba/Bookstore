@@ -1,0 +1,15 @@
+<jboss-deployment-structure>
+	<deployment>
+		<dependencies>
+			<module name="org.apache.cxf" services="import" />
+			<module name="org.apache.cxf.impl" services="import">
+				<imports>
+					<include path="META-INF**" />
+					<include path="org**" />
+					<include path="schemas**" />
+				</imports>
+			</module>
+			<module name="org.codehaus.jackson.jackson-jaxrs" services="import" />
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>

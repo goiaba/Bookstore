@@ -1,0 +1,29 @@
+1) Install JBossWS
+
+2) Download spring-web-3.0.7.RELEASE.jar:
+	rename to spring-web.jar
+	place into <JBOSS_HOME>/modules/org/springframework/spring/main
+
+3) Download cxf-rt-frontend-jaxrs-2.6.0.jar
+	rename to cxf-rt-frontend-jaxrs.jar
+	place into <JBOSS_HOME>/modules/org/apache/cxf/impl/main
+
+4) Edit <JBOSS_HOME>/modules/org/springframework/spring/main/module.xml
+	add to <resources>
+		<resource-root path="spring-web.jar"/>
+	add to <dependencies>
+		<module name="javax.servlet.api" />
+
+5) Edit <JBOSS_HOME>/modules/org/apache/cxf/impl/main/module.xml
+	add to <resources>
+		<resource-root path="cxf-rt-frontend-jaxrs.jar"/>
+	add to <dependencies>
+		<module name="javax.ws.rs.api" />
+
+6) Other configurations need to be done inside specific application:
+	pom.xml
+	web.xml
+	cxf-servlet.xml
+	jboss-deployment-structure.xml
+
+Source: http://resistentialjava.blogspot.com/2012/12/rest-api-using-cxf-and-jboss-ws.html
