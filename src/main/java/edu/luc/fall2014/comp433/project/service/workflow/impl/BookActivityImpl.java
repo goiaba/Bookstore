@@ -33,7 +33,7 @@ public class BookActivityImpl extends BaseActivityImpl<Short, Book, BookDao>
 	@Override
 	public Book searchById(Short id) {
 		if (null == id)
-			throw new IllegalArgumentException("id must be passed.");
+			throw new IllegalArgumentException("id cannot be null.");
 		return bookDAO.findById(id);
 	}
 
@@ -64,5 +64,12 @@ public class BookActivityImpl extends BaseActivityImpl<Short, Book, BookDao>
 	@Override
 	public List<Book> findBookByIds(List<Short> bookIdList) {
 		return bookDAO.findById(bookIdList);
+	}
+
+	@Override
+	public String retrieveBookDescription(Short id) {
+		if (null == id)
+			throw new IllegalArgumentException("id cannot be null.");
+		return bookDAO.findDescriptionByBookId(id);
 	}
 }

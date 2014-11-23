@@ -69,7 +69,7 @@ public class Address extends BaseEntity<Short> {
 	@Basic(optional = false)
 	private String state;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer", referencedColumnName = "id")
 	private Customer customer;
 

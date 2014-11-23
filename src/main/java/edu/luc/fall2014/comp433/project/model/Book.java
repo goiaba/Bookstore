@@ -63,6 +63,9 @@ public class Book extends BaseEntity<Short> {
 
 	@Basic(optional = false)
 	private String author;
+	
+	@Basic(optional = true)
+	private String description;
 
 	@Min(value = 0)
 	@Max(value = 9999)
@@ -117,6 +120,14 @@ public class Book extends BaseEntity<Short> {
 		this.author = author;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -133,6 +144,7 @@ public class Book extends BaseEntity<Short> {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -165,6 +177,11 @@ public class Book extends BaseEntity<Short> {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
 			return false;
 		return true;
 	}

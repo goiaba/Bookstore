@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import edu.luc.fall2014.comp433.project.model.enumerator.PaymentType;
 
 /**
- *
+ * 
  * @author Thiago Vieira Puluceno
  */
 @Entity
@@ -42,41 +43,42 @@ import edu.luc.fall2014.comp433.project.model.enumerator.PaymentType;
 		@NamedQuery(name = "Payment.findById", query = "SELECT p FROM Payment p WHERE p.id = :id"),
 		@NamedQuery(name = "Payment.findByType", query = "SELECT p FROM Payment p WHERE p.type = :type"),
 		@NamedQuery(name = "Payment.findByAmount", query = "SELECT p FROM Payment p WHERE p.amount = :amount") })
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Payment extends BaseEntity<Short> {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Basic(optional = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
-	
+
 	@NotNull
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
 	private PaymentType type;
-	
+
 	@Min(value = 0)
 	@Max(value = 99999)
 	@Basic(optional = false)
 	private BigDecimal amount;
-	
-	@OneToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH,
+			CascadeType.REFRESH })
 	private Order order;
-	
+
 	@Basic(optional = true)
 	private String cardNumber;
-	
+
 	@Basic(optional = true)
 	private String cardHolderName;
-	
+
 	@Basic(optional = true)
 	private int expirationMonth;
-	
+
 	@Basic(optional = true)
 	private int expirationYear;
-	
+
 	@Basic(optional = true)
 	private int securityCode;
 
@@ -210,8 +212,7 @@ public class Payment extends BaseEntity<Short> {
 		int result = 1;
 		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((order == null) ? 0 : order.hashCode());
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
@@ -235,8 +236,8 @@ public class Payment extends BaseEntity<Short> {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (order== null) {
-			if (other.order!= null)
+		if (order == null) {
+			if (other.order != null)
 				return false;
 		} else if (!order.equals(other.order))
 			return false;

@@ -27,9 +27,15 @@ public class CustomerActivityImpl extends
 	private CustomerDao customerDao;
 
 	@Override
-	public Customer findCustomerByLogin(String login) {
+	public Customer findByLogin(String login) {
 		return customerDao.findByLogin(login);
 	}
+	
+	@Override
+	public Customer findByCustomerId(Short customerId) {
+		return customerDao.findById(customerId);
+	}
+
 
 	@Override
 	public Customer create(Customer customer) throws InvalidAddressException {

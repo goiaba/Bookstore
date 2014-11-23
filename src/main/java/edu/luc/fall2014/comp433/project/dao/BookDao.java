@@ -15,4 +15,6 @@ public interface BookDao extends BaseDao<Short, Book> {
 
 	List<Book> searchByPrice(BigDecimal minPrice, BigDecimal maxPrice);
 
+	String findDescriptionByBookId(Short id);
+
 }

@@ -5,7 +5,9 @@ import edu.luc.fall2014.comp433.project.service.exception.InvalidAddressExceptio
 
 public interface CustomerActivity extends BaseActivity<Short, Customer> {
 
-	Customer findCustomerByLogin(String login);
+	Customer findByLogin(String login);
+
+	Customer findByCustomerId(Short customerId);
 
 	Customer create(Customer customer) throws InvalidAddressException;
 

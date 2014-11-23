@@ -20,13 +20,25 @@ public class AddressDaoImpl extends BaseDaoImpl<Short, Address> implements
 	public AddressDaoImpl() {
 		super(Address.class);
 	}
-	
+
 	@Override
 	public List<Address> findAddressByCustomerId(Short customerId) {
 		String query = "SELECT address FROM Address "
 				+ "address WHERE address.customer.id= :customerId";
 		try {
 			return getEntityManager().createQuery(query, Address.class)
+					.setParameter("customerId", customerId).getResultList();
+		} catch (NoResultException e) {
+			return Collections.emptyList();
+		}
+	}
+
+	@Override
+	public List<Short> findAddressIdByCustomerId(Short customerId) {
+		String query = "SELECT id FROM Address "
+				+ "address WHERE address.customer.id= :customerId";
+		try {
+			return getEntityManager().createQuery(query, Short.class)
 					.setParameter("customerId", customerId).getResultList();
 		} catch (NoResultException e) {
 			return Collections.emptyList();

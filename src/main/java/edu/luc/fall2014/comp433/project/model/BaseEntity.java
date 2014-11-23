@@ -8,6 +8,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 public abstract class BaseEntity<I extends Number> implements Serializable  {
 
+	private static final long serialVersionUID = 1L;
+
 	public abstract I getId();
 	public abstract void setId(I id);
 	

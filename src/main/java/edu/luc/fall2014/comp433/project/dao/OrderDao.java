@@ -18,6 +18,10 @@ public interface OrderDao extends BaseDao<Short, Order> {
 	 * @return
 	 */
 	List<Order> findOrderByCustomerLogin(String login);
+	
+	List<Short> findOrderIdByCustomerLogin(String login);
 
+	List<Order> findOrderByCustomerId(Short customerId);
+	
 }
 

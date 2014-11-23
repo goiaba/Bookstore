@@ -42,6 +42,26 @@ public class OrderActivityImpl extends BaseActivityImpl<Short, Order, OrderDao>
 	private AddressActivity addressActivity;
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.NEVER)
+	public Order retrieveOrder(Short orderId) throws OrderNotFoundException {
+		Order order = orderDao.findById(orderId);
+		if (null == order)
+			throw new OrderNotFoundException();
+		return order;
+
+	}
+	
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.NEVER)
+	public List<Order> findByCustomerId(Short customerId) throws OrderNotFoundException {
+		List<Order> orders = orderDao.findOrderByCustomerId(customerId);
+		if (null == orders || orders.isEmpty())
+			throw new OrderNotFoundException();
+		return orders;
+	}
+
+	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Order createOrder(Order order) throws InvalidAddressException {
 
@@ -55,7 +75,7 @@ public class OrderActivityImpl extends BaseActivityImpl<Short, Order, OrderDao>
 		 */
 		if (customerActivity.validateUserAuth(customer)) {
 			customer = customerActivity
-					.findCustomerByLogin(customer.getLogin());
+					.findByLogin(customer.getLogin());
 			address = addressActivity
 					.findAddressByCustomerIdAndAddressInformation(
 							customer.getId(), order.getAddress());
@@ -130,16 +150,18 @@ public class OrderActivityImpl extends BaseActivityImpl<Short, Order, OrderDao>
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NEVER)
-	public List<Order> findOrderByCustomerLogin(String login)
+	public List<Order> findByCustomerLogin(String login)
 			throws OrderNotFoundException {
 		List<Order> orders = orderDao.findOrderByCustomerLogin(login);
 		if (null == orders || orders.isEmpty())
 			throw new OrderNotFoundException();
-		// TODO: Ugly way of removing customer info going to client. Improve it.
-		for (Order order : orders) {
-			order.setCustomer(null);
-		}
 		return orders;
+	}
+
+
+	@Override
+	public List<Short> findOrderIdByCustomerLogin(String login) {
+		return orderDao.findOrderIdByCustomerLogin(login);
 	}
 
 }

@@ -20,6 +20,21 @@ import edu.luc.fall2014.comp433.project.model.Order;
 public interface OrderService extends BaseService<Short, Order> {
 
 	/**
+	 * Retrieves the most actual information of specific order 
+	 * @param orderId the order identifier
+	 * @return order representation
+	 */
+	@GET
+	@Path("/{orderId:[0-9]+}")
+	@Produces({ "application/json" })
+	public Response retrieveOrder(@PathParam("orderId") Short orderId);
+	
+	@GET
+	@Path("/customers/{customerId:[0-9]+}")
+	@Produces({ "application/json" })
+	public Response retrieveOrdersByCustomerId(@PathParam("customerId") Short customerId);
+	
+	/**
 	 * Creates an order for the given customer.
 	 * 
 	 * @param customer
@@ -64,16 +79,16 @@ public interface OrderService extends BaseService<Short, Order> {
 	@Produces({ "application/json" })
 	public Response checkOrderStatus(@PathParam("orderId") Short orderId);
 
-	/**
-	 * Locate orders from specific customer
-	 * 
-	 * @param login
-	 *            Login of the customer
-	 * @return List of orders sorted by Status.
-	 */
-	@GET
-	@Path("/{login}")
-	@Produces({ "application/json" })
-	public Response findOrderByCustomerLogin(@PathParam("login") String login);
+//	/**
+//	 * Locate orders from specific customer
+//	 * 
+//	 * @param login
+//	 *            Login of the customer
+//	 * @return List of orders sorted by Status.
+//	 */
+//	@GET
+//	@Path("/customers/{login}")
+//	@Produces({ "application/json" })
+//	public Response findOrderByCustomerLogin(@PathParam("login") String login);
 
 }

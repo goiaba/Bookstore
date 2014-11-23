@@ -30,7 +30,7 @@ public class AddressActivityImpl extends
 	 * @return
 	 */
 	@Override
-	public Address findAddressById(Short addressId) {
+	public Address findById(Short addressId) {
 		return addressDao.findById(addressId);
 	}
 
@@ -49,6 +49,11 @@ public class AddressActivityImpl extends
 			Short customerId, Address address) {
 		return addressDao.findAddressByCustomerIdAndAddressInformation(
 				customerId, address);
+	}
+
+	@Override
+	public List<Short> findAddressIdByCustomerId(Short customerId) {
+		return addressDao.findAddressIdByCustomerId(customerId);
 	}
 
 }

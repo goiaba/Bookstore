@@ -18,7 +18,7 @@ import edu.luc.fall2014.comp433.project.model.Customer;
 /**
  * @author Bruno Correa <brunogmc at gmail>
  * @author Thiago Puluceno <tpuluceno@luc.edu>
- *
+ * 
  */
 @Path("/customers")
 public interface CustomerService extends BaseService<Short, Customer> {
@@ -26,7 +26,7 @@ public interface CustomerService extends BaseService<Short, Customer> {
 	/**
 	 * Method responsible for returning customer data once his login is
 	 * provided.
-	 *
+	 * 
 	 * @param login
 	 *            User login
 	 * @return All customer data.
@@ -34,7 +34,13 @@ public interface CustomerService extends BaseService<Short, Customer> {
 	@GET
 	@Path("/{login}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response findByLogin(@PathParam("login") String login);
+	public Response retrieveByLogin(@PathParam("login") String login);
+
+//	@GET
+//	@Path("/{customerId}")
+//	@Consumes({ MediaType.APPLICATION_JSON })
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	public Response retrieveById(@PathParam("customerId") Short customerId);
 
 	/**
 	 * @param customer
@@ -51,6 +57,7 @@ public interface CustomerService extends BaseService<Short, Customer> {
 	@Path("/{customerId}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response update(Customer customer);
+	public Response update(@PathParam("customerId") Short customerId,
+			Customer customer);
 
 }

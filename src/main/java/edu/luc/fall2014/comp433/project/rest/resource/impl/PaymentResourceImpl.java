@@ -5,65 +5,57 @@ package edu.luc.fall2014.comp433.project.rest.resource.impl;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ejb.EJB;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import edu.luc.fall2014.comp433.project.model.Payment;
+import edu.luc.fall2014.comp433.project.rest.representation.BookstoreURI;
+import edu.luc.fall2014.comp433.project.rest.representation.PaymentRepresentation;
 import edu.luc.fall2014.comp433.project.rest.resource.PaymentService;
 import edu.luc.fall2014.comp433.project.service.workflow.PaymentActivity;
 
 /**
  * @author Bruno Correa <brunogmc at gmail>
  * @author Thiago Puluceno <tpuluceno@luc.edu>
- *
+ * 
  */
-@Path("/payments")
-public class PaymentResourceImpl implements PaymentService {
+public class PaymentResourceImpl extends BaseResourceImpl<Short, Payment>
+		implements PaymentService {
 
-	@Inject
+	@EJB
 	private PaymentActivity paymentActivity;
 
 	@Override
-	@GET
-	@Path("{id}")
-	@Produces({ "application/json" })
-	public Response findPaymentById(@PathParam("id") Short id) {
-		Response response = null;
+	public Response findPaymentById(Short id) {
+		Response response = notFound();
 		if (null != id) {
 			Payment payment = paymentActivity.findPaymentById(id);
 			if (null != payment) {
-				response = Response.ok(payment).build();
-			} else {
-				response = Response.status(Status.NOT_FOUND).build();
+				// response = ok(payment);
+				// TODO enable payment representation
+				PaymentRepresentation payRep = new PaymentRepresentation(
+						payment, new BookstoreURI(getRequestUri()));
+				response = ok(payRep);
 			}
-		} else {
-			response = Response.status(Status.BAD_REQUEST).build();
 		}
 		return response;
 	}
 
 	@Override
-	@GET
-	@Produces({ "application/json" })
-	@Path("/customers/{customerId}")
-	public Response findPaymentByCustomerId(
-			@PathParam("customerId") Short customerId) {
-		Response response = null;
+	public Response findPaymentByCustomerId(Short customerId) {
+		Response response = notFound();
 		if (null != customerId) {
 			List<Payment> payments = paymentActivity
 					.findPaymentByCustomerId(customerId);
 			if (null != payments && !payments.isEmpty()) {
-				response = Response.ok(payments).build();
-			} else {
-				response = Response.status(Status.NOT_FOUND).build();
+				// response = ok(payments);
+				// TODO enable order representation
+				List<PaymentRepresentation> payRepList = PaymentRepresentation
+						.fromModelList(PaymentRepresentation.class,
+								Payment.class, payments, new BookstoreURI(
+										getRequestUri()));
+				response = ok(payRepList);
 			}
-		} else {
-			response = Response.status(Status.BAD_REQUEST).build();
 		}
 		return response;
 	}

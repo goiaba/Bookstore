@@ -11,9 +11,9 @@ import edu.luc.fall2014.comp433.project.dao.BookDao;
 import edu.luc.fall2014.comp433.project.model.Book;
 
 /**
- *
+ * 
  * @author Thiago Vieira Puluceno
- *
+ * 
  */
 @RequestScoped
 public class BookDaoImpl extends BaseDaoImpl<Short, Book> implements BookDao {
@@ -21,7 +21,7 @@ public class BookDaoImpl extends BaseDaoImpl<Short, Book> implements BookDao {
 	public BookDaoImpl() {
 		super(Book.class);
 	}
-	
+
 	@Override
 	public Book searchByIsbn(String isbn) {
 		try {
@@ -38,7 +38,8 @@ public class BookDaoImpl extends BaseDaoImpl<Short, Book> implements BookDao {
 		try {
 			return super.getEntityManager()
 					.createNamedQuery(Book.FIND_BY_TITLE, Book.class)
-					.setParameter("title", "%" + title.toLowerCase() + "%").getResultList();
+					.setParameter("title", "%" + title.toLowerCase() + "%")
+					.getResultList();
 		} catch (NoResultException e) {
 			return Collections.emptyList();
 		}
@@ -49,7 +50,8 @@ public class BookDaoImpl extends BaseDaoImpl<Short, Book> implements BookDao {
 		try {
 			return super.getEntityManager()
 					.createNamedQuery(Book.FIND_BY_AUTHOR, Book.class)
-					.setParameter("author", "%" + author.toLowerCase() + "%").getResultList();
+					.setParameter("author", "%" + author.toLowerCase() + "%")
+					.getResultList();
 		} catch (NoResultException e) {
 			return Collections.emptyList();
 		}
@@ -64,6 +66,17 @@ public class BookDaoImpl extends BaseDaoImpl<Short, Book> implements BookDao {
 					.setParameter("maxPrice", maxPrice).getResultList();
 		} catch (NoResultException e) {
 			return Collections.emptyList();
+		}
+	}
+
+	@Override
+	public String findDescriptionByBookId(Short id) {
+		String query = "SELECT description FROM Book book WHERE book.id = :id";
+		try {
+			return getEntityManager().createQuery(query, String.class)
+					.setParameter("id", id).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
 		}
 	}
 

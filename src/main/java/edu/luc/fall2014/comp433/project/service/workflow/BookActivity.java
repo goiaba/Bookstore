@@ -16,5 +16,7 @@ public interface BookActivity extends BaseActivity<Short, Book> {
 			BigDecimal minPrice, BigDecimal maxPrice);
 
 	List<Book> findBookByIds(List<Short> bookIdList);
+
+	String retrieveBookDescription(Short id);
 	
 }

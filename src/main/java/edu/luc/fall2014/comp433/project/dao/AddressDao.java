@@ -18,6 +18,8 @@ public interface AddressDao extends BaseDao<Short, Address> {
 	 * @return
 	 */
 	List<Address> findAddressByCustomerId(Short customerId);
+	
+	List<Short> findAddressIdByCustomerId(Short customerId);
 
 	Address findAddressByCustomerIdAndAddressInformation(Short customerId,
 			Address address);

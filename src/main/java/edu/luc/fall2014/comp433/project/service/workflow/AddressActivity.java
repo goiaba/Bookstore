@@ -6,7 +6,9 @@ import edu.luc.fall2014.comp433.project.model.Address;
 
 public interface AddressActivity extends BaseActivity<Short, Address> {
 
-	Address findAddressById(Short addressId);
+	Address findById(Short addressId);
+	
+	List<Short> findAddressIdByCustomerId(Short id);
 
 	List<Address> findAddressByCustomerId(Short customerId);
 	

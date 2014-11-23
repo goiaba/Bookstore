@@ -58,7 +58,7 @@ public class Order extends BaseEntity<Short> {
 	private List<Book> bookList = new ArrayList<Book>();
 
 	@JoinColumn(name = "customer", referencedColumnName = "id")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {
+	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {
 			CascadeType.DETACH, CascadeType.REFRESH })
 	private Customer customer;
 
