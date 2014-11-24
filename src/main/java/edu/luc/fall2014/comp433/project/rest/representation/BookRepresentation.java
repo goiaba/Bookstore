@@ -3,7 +3,6 @@ package edu.luc.fall2014.comp433.project.rest.representation;
 import java.math.BigDecimal;
 
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
 
 import edu.luc.fall2014.comp433.project.model.Book;
 
@@ -32,13 +31,11 @@ public class BookRepresentation extends BaseRepresentation {
 	}
 
 	public void createLinks(BookstoreURI uri) {
-		// TODO review links
 		addLink(new Link("self", uri.getBookPath(getId().toString()),
-				HttpMethod.GET, MediaType.APPLICATION_JSON));
+				HttpMethod.GET));
 		addLink(new Link("description", uri.getBookDescriptionPath(getId()
-				.toString()), HttpMethod.GET, MediaType.APPLICATION_JSON));
-		addLink(new Link("buy", uri.getOrderPath(), HttpMethod.POST,
-				MediaType.APPLICATION_JSON));
+				.toString()), HttpMethod.GET));
+		addLink(new Link("order", uri.getOrderPath(), HttpMethod.POST));
 	}
 
 	public Short getId() {

@@ -13,9 +13,7 @@ import edu.luc.fall2014.comp433.project.rest.representation.BookstoreURI;
 import edu.luc.fall2014.comp433.project.rest.representation.CustomerRepresentation;
 import edu.luc.fall2014.comp433.project.rest.resource.CustomerService;
 import edu.luc.fall2014.comp433.project.service.exception.InvalidAddressException;
-import edu.luc.fall2014.comp433.project.service.workflow.AddressActivity;
 import edu.luc.fall2014.comp433.project.service.workflow.CustomerActivity;
-import edu.luc.fall2014.comp433.project.service.workflow.OrderActivity;
 
 /**
  * @author Bruno Correa <brunogmc at gmail>
@@ -26,12 +24,6 @@ public class CustomerResourceImpl extends BaseResourceImpl<Short, Customer>
 
 	@EJB
 	private CustomerActivity customerActivity;
-
-	@EJB
-	private AddressActivity addressActivity;
-
-	@EJB
-	private OrderActivity orderActivity;
 
 	@Override
 	public Response retrieveByLogin(String login) {
@@ -44,10 +36,6 @@ public class CustomerResourceImpl extends BaseResourceImpl<Short, Customer>
 				// TODO enable customer representation
 				CustomerRepresentation custRep = new CustomerRepresentation(
 						customer, new BookstoreURI(getRequestUri()));
-				custRep.addAddressesLinks(addressActivity
-						.findAddressIdByCustomerId(customer.getId()));
-				custRep.addOrdersLinks(orderActivity
-						.findOrderIdByCustomerLogin(customer.getLogin()));
 				response = ok(custRep);
 			}
 		}

@@ -1,17 +1,16 @@
 package edu.luc.fall2014.comp433.project.rest.representation;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import edu.luc.fall2014.comp433.project.model.Book;
 import edu.luc.fall2014.comp433.project.model.Order;
-import edu.luc.fall2014.comp433.project.model.Payment;
 import edu.luc.fall2014.comp433.project.model.enumerator.OrderStatus;
-import edu.luc.fall2014.comp433.project.model.enumerator.PaymentType;
 
 public class OrderRepresentation extends BaseRepresentation {
 
@@ -30,7 +29,7 @@ public class OrderRepresentation extends BaseRepresentation {
 	private void populateFields(Order entity, BookstoreURI uri) {
 		if (null != entity) {
 			this.setId(entity.getId());
-			this.customerLogin = entity.getCustomer().getLogin().toString();
+			this.setCustomerLogin(entity.getCustomer().getLogin().toString());
 			this.setAddress(new AddressRepresentation(entity.getAddress(), uri));
 			this.setPayment(new PaymentRepresentation(entity.getPayment(), uri));
 			this.setBooks(fromModelList(entity.getBookList(), uri));
@@ -40,22 +39,21 @@ public class OrderRepresentation extends BaseRepresentation {
 	}
 
 	private void createLinks(BookstoreURI uri) {
-		addLink(new Link("customer", uri.getCustomerPath(customerLogin),
-				HttpMethod.GET, MediaType.APPLICATION_JSON));
-		
+		addLink(new Link("customer", uri.getCustomerPath(getCustomerLogin()),
+				HttpMethod.GET));
+
 		if (!OrderStatus.CANCELED.equals(getStatus())) {
-		
+
 			addLink(new Link("self", uri.getOrderPath(getId().toString()),
-					HttpMethod.GET, MediaType.APPLICATION_JSON));
+					HttpMethod.GET));
 			addLink(new Link("status", uri.getOrderStatusPath(getId()
-					.toString()), HttpMethod.GET, MediaType.APPLICATION_JSON));
-			
+					.toString()), HttpMethod.GET));
+
 			if (OrderStatus.PROCESSING.equals(getStatus())) {
-			
+
 				addLink(new Link("cancel", uri.getCancelOrderPath(getId()
-						.toString()), HttpMethod.PUT,
-						MediaType.APPLICATION_JSON));
-				
+						.toString()), HttpMethod.PUT));
+
 			}
 		}
 	}
@@ -71,26 +69,22 @@ public class OrderRepresentation extends BaseRepresentation {
 
 	}
 
-	public static void main(String[] args) {
-
-		Payment p = new Payment(new Integer(1).shortValue(), PaymentType.CASH,
-				new BigDecimal(100));
-		Order o = new Order(null, null, null, p);
-		o.setStatus(OrderStatus.PROCESSING);
-		o.setId(new Integer(1).shortValue());
-		p.setOrder(o);
-
-		PaymentRepresentation pr = new PaymentRepresentation(p,
-				new BookstoreURI("http://localhost:8080/project/rest"));
-		System.out.println(pr.getOrder().getStatus());
-	}
-
 	public Short getId() {
 		return id;
 	}
 
 	public void setId(Short id) {
 		this.id = id;
+	}
+
+	@JsonIgnore
+	@XmlTransient
+	public String getCustomerLogin() {
+		return customerLogin;
+	}
+
+	public void setCustomerLogin(String customerLogin) {
+		this.customerLogin = customerLogin;
 	}
 
 	public AddressRepresentation getAddress() {

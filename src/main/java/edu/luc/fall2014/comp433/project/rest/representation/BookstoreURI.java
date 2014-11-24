@@ -66,9 +66,9 @@ public class BookstoreURI {
 	}
 
 	public String getCustomerPath(String pathParam) {
-		String path = getBaseUri() + "/customers/";
+		String path = getBaseUri() + "/customers";
 		if (null != pathParam)
-			path = path + pathParam;
+			path = path + "/" + pathParam;
 		return path;
 	}
 
@@ -77,9 +77,9 @@ public class BookstoreURI {
 	}
 
 	public String getOrderPath(String pathParam) {
-		String path = getBaseUri() + "/orders/";
+		String path = getBaseUri() + "/orders";
 		if (null != pathParam)
-			path = path + pathParam;
+			path = path + "/" + pathParam;
 		return path;
 	}
 
@@ -97,14 +97,21 @@ public class BookstoreURI {
 		return getOrderPath(orderId) + "/status";
 	}
 
+	public String getOrderByCustomerPath(String customerId) {
+		if (null == customerId) {
+			throw new IllegalArgumentException("id cannot be null");
+		}
+		return getOrderPath() + "/customers/" + customerId;
+	}
+
 	public String getBookPath() {
 		return getBookPath(null);
 	}
 
 	public String getBookPath(String bookId) {
-		String path = getBaseUri() + "/books/";
+		String path = getBaseUri() + "/books";
 		if (null != bookId)
-			path = path + bookId;
+			path = path + "/" + bookId;
 		return path;
 	}
 
@@ -116,10 +123,14 @@ public class BookstoreURI {
 	}
 
 	public String getAddressPath(String addressId) {
-		String path = getBaseUri() + "/addresses/";
+		String path = getBaseUri() + "/addresses";
 		if (null != addressId)
-			path = path + addressId;
+			path = path + "/" + addressId;
 		return path;
+	}
+
+	public String getAddressByCustomerPath(String customerId) {
+		return getAddressPath() + "/customers/" + customerId;
 	}
 
 	public String getAddressPath() {
@@ -127,14 +138,14 @@ public class BookstoreURI {
 	}
 
 	public String getPaymentPath(String paymentId) {
-		String path = getBaseUri() + "/payments/";
+		String path = getBaseUri() + "/payments";
 		if (null != paymentId)
-			path = path + paymentId;
+			path = path + "/" + paymentId;
 		return path;
 	}
 
 	public String getPaymentPath() {
 		return getPaymentPath(null);
 	}
-	
+
 }

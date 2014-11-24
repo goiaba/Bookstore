@@ -3,7 +3,6 @@ package edu.luc.fall2014.comp433.project.rest.representation;
 import java.util.List;
 
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -12,7 +11,6 @@ import edu.luc.fall2014.comp433.project.model.Customer;
 
 public class CustomerRepresentation extends BaseRepresentation {
 
-	private BookstoreURI uri;
 	private Short id;
 	private String login;
 	private String password;
@@ -22,22 +20,7 @@ public class CustomerRepresentation extends BaseRepresentation {
 
 	public CustomerRepresentation(Customer entity, BookstoreURI uri) {
 		super();
-		this.uri = uri;
 		populateFields(entity, uri);
-	}
-
-	public void addAddressesLinks(List<Short> addressesId) {
-		for (Short id : addressesId) {
-			addLink(new Link("address", uri.getAddressPath(id.toString()),
-					HttpMethod.GET, MediaType.APPLICATION_JSON));
-		}
-	}
-
-	public void addOrdersLinks(List<Short> ordersId) {
-		for (Short id : ordersId) {
-			addLink(new Link("order", uri.getOrderPath(id.toString()),
-					HttpMethod.GET, MediaType.APPLICATION_JSON));
-		}
 	}
 
 	private void populateFields(Customer entity, BookstoreURI uri) {
@@ -50,9 +33,12 @@ public class CustomerRepresentation extends BaseRepresentation {
 	}
 
 	private void createLinks(BookstoreURI uri) {
-		// TODO review links
 		addLink(new Link("self", uri.getCustomerPath(getLogin()),
-				HttpMethod.GET, MediaType.APPLICATION_JSON));
+				HttpMethod.GET));
+		addLink(new Link("addresses", uri.getAddressByCustomerPath(getId()
+				.toString()), HttpMethod.GET));
+		addLink(new Link("orders", uri.getOrderByCustomerPath(getId()
+				.toString()), HttpMethod.GET));
 	}
 
 	public Short getId() {

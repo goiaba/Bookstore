@@ -1,7 +1,6 @@
 package edu.luc.fall2014.comp433.project.rest.representation;
 
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
 
 public class BookDescriptionRepresentation extends BaseRepresentation {
 
@@ -12,9 +11,9 @@ public class BookDescriptionRepresentation extends BaseRepresentation {
 		super();
 		this.setDescription(description);
 		addLink(new Link("book", uri.getBookPath(bookId.toString()),
-				HttpMethod.GET, MediaType.APPLICATION_JSON));
+				HttpMethod.GET));
 		addLink(new Link("self", uri.getBookDescriptionPath(bookId.toString()),
-				HttpMethod.GET, MediaType.APPLICATION_JSON));
+				HttpMethod.GET));
 	}
 
 	public String getDescription() {

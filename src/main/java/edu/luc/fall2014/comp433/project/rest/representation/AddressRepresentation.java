@@ -3,7 +3,6 @@ package edu.luc.fall2014.comp433.project.rest.representation;
 import java.util.List;
 
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -41,11 +40,10 @@ public class AddressRepresentation extends BaseRepresentation {
 	}
 
 	private void createLinks(Address entity, BookstoreURI uri) {
-		// TODO review links
-		addLink(new Link("customer", uri.getCustomerPath(entity.getCustomer()
-				.getLogin()), HttpMethod.GET, MediaType.APPLICATION_JSON));
 		addLink(new Link("self", uri.getBaseUri() + "/addresses/" + getId(),
-				HttpMethod.GET, MediaType.APPLICATION_JSON));
+				HttpMethod.GET));
+		addLink(new Link("customer", uri.getCustomerPath(entity.getCustomer()
+				.getLogin()), HttpMethod.GET));
 	}
 
 	public Short getId() {

@@ -46,7 +46,7 @@ public class AddressResourceImpl extends BaseResourceImpl<Short, Address>
 		Response response = notFound();
 		List<Address> addresses = null;
 		if (customerId != null) {
-			// addresses = addressActivity.findAddressByCustomerId(customerId);
+			 addresses = addressActivity.findAddressByCustomerId(customerId);
 			// response = ok(addresses);
 			// TODO enable address representation
 			List<AddressRepresentation> addRepList = AddressRepresentation

@@ -41,11 +41,12 @@ public class OrderDaoImpl extends BaseDaoImpl<Short, Order> implements OrderDao 
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Order> findOrderByCustomerId(Short customerId) {
 		String query = "SELECT customer.orderList FROM Customer "
-				+ "customer WHERE customer.login = :login";
+				+ "customer WHERE customer.id= :customerId";
 		try {
-			return getEntityManager().createQuery(query, Order.class)
+			return getEntityManager().createQuery(query)
 					.setParameter("customerId", customerId).getResultList();
 		} catch (NoResultException e) {
 			return Collections.emptyList();

@@ -3,7 +3,6 @@ package edu.luc.fall2014.comp433.project.rest.representation;
 import java.math.BigDecimal;
 
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -43,11 +42,10 @@ public class PaymentRepresentation extends BaseRepresentation {
 	}
 
 	private void createLinks(Payment entity, BookstoreURI uri) {
-		// TODO review links
 		addLink(new Link("self", uri.getPaymentPath(getId().toString()),
-				HttpMethod.GET, MediaType.APPLICATION_JSON));
+				HttpMethod.GET));
 		addLink(new Link("order", uri.getOrderPath(entity.getOrder().getId()
-				.toString()), HttpMethod.GET, MediaType.APPLICATION_JSON));
+				.toString()), HttpMethod.GET));
 	}
 
 	public int getSecurityCode() {
