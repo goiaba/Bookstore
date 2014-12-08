@@ -3,7 +3,22 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-	<display-name>Archetype Created Web Application</display-name>
+	<display-name>Bookstore</display-name>
+
+	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<servlet-name>CXFServlet</servlet-name>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>CXFServlet</servlet-name>

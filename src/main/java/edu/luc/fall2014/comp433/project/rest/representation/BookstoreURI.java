@@ -51,8 +51,8 @@ public class BookstoreURI {
 
 	public String getBaseUri() {
 		String port = "";
-		if (uri.getPort() != 80)
-			port = ":" + uri.getPort();
+//		if (uri.getPort() != 80)
+//			port = ":" + uri.getPort();
 		return uri.getScheme() + "://" + uri.getHost() + port + servletContext
 				+ cxfUrlPattern;
 	}
