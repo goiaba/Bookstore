@@ -1,9 +1,9 @@
 package edu.luc.fall2014.comp433.project.rest.resource;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -61,7 +61,7 @@ public interface OrderService extends BaseService<Short, Order> {
 	 *            it.
 	 * @return true if order is cancelled, otherwise false.
 	 */
-	@DELETE
+	@PUT
 	@Path("/{orderId:[0-9]+}/cancel")
 	@Produces({ "application/json" })
 	public Response cancelOrder(@PathParam("orderId") Short orderId);
