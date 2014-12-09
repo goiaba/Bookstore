@@ -16,9 +16,6 @@
 --
 
 -- You can use this file to load seed data into the database using SQL statements
-insert into Member (id, name, email, phone_number) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212')
-
-
 insert into bookstore.Book(isbn, title, author, price, description) values ('1020304050', 'The Art of Software Testing','Glenford J. Myers', 55, 'The classic, landmark work on software testing The hardware and software of computing have changed markedly in the three decades since the first edition of The Art of Software Testing...'); 
 insert into bookstore.Book(isbn, title, author, price, description) values ('1122334455', 'Scala in Depth','Joshua D. Suereth', 56.90, 'Scala in Depth is a unique new book designed to help you integrate Scala effectively into your development process...'); 
 insert into bookstore.Book(isbn, title, author, price, description) values ('1342357586', 'Programming Interviews Exposed','John Mongan', 45.90, 'Be prepared for your next job interview with this tried-and-true advice In today s tight job market, competition for programming jobs is hotter than ever. This third edition of a popular guide to programming interviews...'); 
