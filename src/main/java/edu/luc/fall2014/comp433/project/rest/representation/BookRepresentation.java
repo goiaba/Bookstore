@@ -37,7 +37,7 @@ public class BookRepresentation extends BaseRepresentation {
 				HttpMethod.GET));
 		addLink(new Link("description", uri.getBookDescriptionPath(getId()
 				.toString()), HttpMethod.GET));
-		addLink(new Link("order", uri.getOrderPath(), HttpMethod.POST));
+		addLink(new Link("buy", uri.getOrderPath(), HttpMethod.POST));
 	}
 
 	public Short getId() {
