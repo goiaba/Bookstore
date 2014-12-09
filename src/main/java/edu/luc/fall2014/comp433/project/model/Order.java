@@ -20,9 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import edu.luc.fall2014.comp433.project.model.enumerator.OrderStatus;
 
@@ -32,12 +29,10 @@ import edu.luc.fall2014.comp433.project.model.enumerator.OrderStatus;
  */
 @Entity(name = "Order_")
 @Table(schema = "bookstore")
-@XmlRootElement
 @NamedQueries({
 		@NamedQuery(name = "OrderRepresentation.findAll", query = "SELECT o FROM Order_ o"),
 		@NamedQuery(name = "OrderRepresentation.findById", query = "SELECT o FROM Order_ o WHERE o.id = :id"),
 		@NamedQuery(name = "OrderRepresentation.findByStatus", query = "SELECT o FROM Order_ o WHERE o.status = :status") })
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Order extends BaseEntity<Short> {
 
 	private static final long serialVersionUID = 1L;

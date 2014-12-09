@@ -3,12 +3,14 @@ package edu.luc.fall2014.comp433.project.rest.representation;
 import java.util.List;
 
 import javax.ws.rs.HttpMethod;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import edu.luc.fall2014.comp433.project.model.Customer;
 
+@XmlRootElement
 public class CustomerRepresentation extends BaseRepresentation {
 
 	private Short id;

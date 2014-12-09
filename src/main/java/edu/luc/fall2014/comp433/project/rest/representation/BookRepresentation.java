@@ -3,9 +3,11 @@ package edu.luc.fall2014.comp433.project.rest.representation;
 import java.math.BigDecimal;
 
 import javax.ws.rs.HttpMethod;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.luc.fall2014.comp433.project.model.Book;
 
+@XmlRootElement
 public class BookRepresentation extends BaseRepresentation {
 
 	private Short id;

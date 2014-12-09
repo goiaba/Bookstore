@@ -18,17 +18,13 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * 
  * @author Thiago Vieira Puluceno
  */
 @Entity
-@Table(schema = "bookstore", uniqueConstraints = @UniqueConstraint(columnNames = "isbn"))
-@XmlRootElement
+@Table(schema = "bookstore", uniqueConstraints = @UniqueConstraint(name = "BOOK_UN_CONSTRAINT_ISBN", columnNames = {"isbn"}))
 @NamedQueries({
 		@NamedQuery(name = Book.LIST_ALL_BOOKS, query = "SELECT b FROM Book b"),
 		@NamedQuery(name = Book.FIND_BY_ID, query = "SELECT b FROM Book b WHERE b.id = :id"),
@@ -37,7 +33,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 		@NamedQuery(name = Book.FIND_BY_TITLE, query = "SELECT b FROM Book b WHERE LOWER(b.title) like :title"),
 		@NamedQuery(name = Book.FIND_BY_AUTHOR, query = "SELECT b FROM Book b WHERE LOWER(b.author) like :author"),
 		@NamedQuery(name = Book.FIND_BY_PRICE, query = "SELECT b FROM Book b WHERE b.price >= :minPrice and b.price <= :maxPrice") })
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Book extends BaseEntity<Short> {
 
 	private static final long serialVersionUID = 1L;

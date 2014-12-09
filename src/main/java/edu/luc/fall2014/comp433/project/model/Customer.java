@@ -19,25 +19,19 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import javax.persistence.UniqueConstraint;
 
 /**
  * 
  * @author Thiago Vieira Puluceno
  */
 @Entity
-@Table(schema = "bookstore")
-@XmlRootElement
+@Table(schema = "bookstore", uniqueConstraints = @UniqueConstraint(name = "CUSTOMER_UN_CONSTRAINT_LOGIN", columnNames = {"login"}))
 @NamedQueries({
 		@NamedQuery(name = "Customer.findAll", query = "SELECT u FROM Customer u"),
 		@NamedQuery(name = "Customer.findById", query = "SELECT u FROM Customer u WHERE u.id = :id"),
 		@NamedQuery(name = "Customer.findByLogin", query = "SELECT u FROM Customer u WHERE u.login = :login"),
 		@NamedQuery(name = "Customer.findByName", query = "SELECT u FROM Customer u WHERE u.name = :name") })
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Customer extends BaseEntity<Short> {
 
 	private static final long serialVersionUID = 1L;
@@ -111,24 +105,18 @@ public class Customer extends BaseEntity<Short> {
 		this.name = name;
 	}
 
-	@XmlTransient
-	@JsonIgnore
 	public List<Address> getAddressList() {
 		return addressList;
 	}
 
-	@JsonIgnore
 	public void setAddress(List<Address> addressList) {
 		this.addressList = addressList;
 	}
 
-	@XmlTransient
-	@JsonIgnore
 	public List<Order> getOrderList() {
 		return orderList;
 	}
 
-	@JsonIgnore
 	public void setOrderList(List<Order> orderList) {
 		this.orderList = orderList;
 	}

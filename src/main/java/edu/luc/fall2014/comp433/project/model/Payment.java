@@ -23,11 +23,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import edu.luc.fall2014.comp433.project.model.enumerator.PaymentType;
 
@@ -37,13 +32,11 @@ import edu.luc.fall2014.comp433.project.model.enumerator.PaymentType;
  */
 @Entity
 @Table(schema = "bookstore")
-@XmlRootElement
 @NamedQueries({
 		@NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
 		@NamedQuery(name = "Payment.findById", query = "SELECT p FROM Payment p WHERE p.id = :id"),
 		@NamedQuery(name = "Payment.findByType", query = "SELECT p FROM Payment p WHERE p.type = :type"),
 		@NamedQuery(name = "Payment.findByAmount", query = "SELECT p FROM Payment p WHERE p.amount = :amount") })
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Payment extends BaseEntity<Short> {
 
 	private static final long serialVersionUID = 1L;
@@ -121,8 +114,6 @@ public class Payment extends BaseEntity<Short> {
 		this.amount = amount;
 	}
 
-	@JsonIgnore
-	@XmlTransient
 	public Order getOrder() {
 		return order;
 	}

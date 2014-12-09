@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.HttpMethod;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -12,6 +13,7 @@ import edu.luc.fall2014.comp433.project.model.Book;
 import edu.luc.fall2014.comp433.project.model.Order;
 import edu.luc.fall2014.comp433.project.model.enumerator.OrderStatus;
 
+@XmlRootElement
 public class OrderRepresentation extends BaseRepresentation {
 
 	private Short id;

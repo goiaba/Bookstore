@@ -20,11 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
@@ -32,7 +27,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  */
 @Entity
 @Table(schema = "bookstore")
-@XmlRootElement
 @NamedQueries({
 		@NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a"),
 		@NamedQuery(name = "Address.findById", query = "SELECT a FROM Address a WHERE a.id = :id"),
@@ -42,7 +36,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 		@NamedQuery(name = "Address.findByZipcode", query = "SELECT a FROM Address a WHERE a.zipcode = :zipcode"),
 		@NamedQuery(name = "Address.findByCity", query = "SELECT a FROM Address a WHERE a.city = :city"),
 		@NamedQuery(name = "Address.findByState", query = "SELECT a FROM Address a WHERE a.state = :state") })
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address extends BaseEntity<Short> {
 	
 	private static final long serialVersionUID = 1L;
@@ -152,24 +145,18 @@ public class Address extends BaseEntity<Short> {
 		this.state = state;
 	}
 
-	@XmlTransient
-	@JsonIgnore
 	public Customer getCustomer() {
 		return customer;
 	}
 
-	@JsonIgnore
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
-	@XmlTransient
-	@JsonIgnore
 	public List<Order> getOrderList() {
 		return orderList;
 	}
 
-	@JsonIgnore
 	public void setOrderList(List<Order> orderList) {
 		this.orderList = orderList;
 	}

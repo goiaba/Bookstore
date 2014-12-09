@@ -3,6 +3,7 @@ package edu.luc.fall2014.comp433.project.rest.representation;
 import java.math.BigDecimal;
 
 import javax.ws.rs.HttpMethod;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -10,6 +11,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import edu.luc.fall2014.comp433.project.model.Payment;
 import edu.luc.fall2014.comp433.project.model.enumerator.PaymentType;
 
+@XmlRootElement
 public class PaymentRepresentation extends BaseRepresentation {
 
 	private Short id;
